@@ -1,0 +1,79 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <!-- DEFAULT LIGHT THEME -->
+    <!-- Override the properties of the following styles to create custom Styles -->
+    
+    <!-- Application Style. -->
+   <style name="IAHAppTheme" parent="IAHAppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+    
+    <!--1. Style for background of all screens -->
+    <style name="iah_backgroundStyle" parent="iah_background_defaultStyle"></style>
+    
+    <!--2. Articles and issues list -->
+    <style name="iah_listViewStyle" parent="iah_listView_defaultStyle"></style>
+    
+    <!-- Header background of main list view -->
+    <style name="iah_listView_headerBackgroundStyle" parent="iah_listView_headerBackground_defaultStyle"></style>
+    
+    <!-- Child view background of main list view -->
+    <style name="iah_listView_childBackgroundStyle" parent="iah_listView_childBackground_defaultStyle"></style>
+    
+    <!-- ListView header text -->
+    <style name="iah_listView_headerTextStyle" parent="iah_listView_headerText_defaultStyle"></style>
+    
+    <!-- ListView child text -->
+    <style name="iah_listView_childTextStyle" parent="iah_listView_childText_defaultStyle"></style>
+    
+	<!-- Chat screen - left chat bubble style -->
+	<style name="iah_leftChatBubbleStyle" parent="iah_leftChatBubble_defaultStyle"></style>
+	
+	 <!-- Chat screen - left chat bubble triangle style -->
+    <style name="iah_leftChatBubbleTriangleStyle" parent="iah_leftChatBubbleTriangle_defaultStyle"></style>
+	
+	<!-- Chat screen - right chat bubble style -->
+    <style name="iah_rightChatBubbleStyle" parent="iah_rightChatBubble_defaultStyle"></style>
+    
+    <!-- Chat screen - right chat bubble triangle style -->
+    <style name="iah_rightChatBubbleTriangleStyle" parent="iah_rightChatBubbleTriangle_defaultStyle"></style>
+    
+    <!-- Chat screen message text style for right chat bubble -->
+    <style name="iah_right_messageTextStyle" parent="@iah_rightmessageText_defaultStyle"></style>
+    
+    <!-- Chat screen message text style for left chat bubble -->
+    <style name="iah_left_messageTextStyle" parent="@iah_leftmessageText_defaultStyle"></style>
+    
+    <!-- Chat screen more info text style - applied to the sender name and time -->
+    <style name="iah_smallTextStyle" parent="@iah_smallText_defaultStyle"></style>
+    
+    <!-- Button Style - applied for report issue button -->
+    <style name="iah_buttonStyle" parent="@iah_button_defaultStyle"></style>
+    
+    <!-- Edit text Style in new user and new issue screen -->
+    <style name="iah_editTextStyle" parent="@iah_editText_defaultStyle"></style>
+    
+    <!-- Edit text Style used in chat screen - add reply -->
+    <style name="iah_messageEditTextStyle" parent="@iah_editText_defaultStyle"></style>
+	    
+    <!-- DRAWABLES -->
+    <!-- Defining the drawable icons used in the project, override the drawable to give your own custom icons -->
+    
+    <!-- Attachment icon used in New Issue screen, and chat screen to show attachments -->
+    <drawable name="iah_attachment_icon">@drawable/iah_attachment_img</drawable>
+    
+    <!-- Search icon used in search menu -->
+    <drawable name="iah_search_icon">@drawable/iah_search_img</drawable>
+    
+    <!-- Disclosure icon used in main list view -->
+    <drawable name="iah_disclosure_next">@drawable/iah_disclosure_img</drawable>
+    
+    <!-- Add attachment icon used in issue detail screen - add reply -->
+    <drawable name="iah_add_attachment">@drawable/iah_add_attachment_img</drawable>
+
+    <!-- Accept icon used in New issue and New user screen -->
+    <drawable name="iah_action_accept">@drawable/iah_action_accept_img</drawable>
+
+    <!-- Accept icon used in New issue screen if user has not registered -->
+    <drawable name="iah_action_forward">@drawable/iah_action_forward_img</drawable>
+</resources>

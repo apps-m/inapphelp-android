@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="iah_app_name">Inapphelp</string>
+
+    <!-- Strings used in the main list view screen -->
+    <string name="iah_help_title">Help</string>
+    <string name="iah_articles_title">FAQ</string>
+    <string name="iah_issues_title">ISSUES</string>
+    <string name="iah_issuebutton_title">Report An Issue</string>
+    <string name="iah_powered_by_helpstack">Powered by HelpStack</string>
+
+    <!-- Strings used in search view -->
+    <string name="iah_search_hint">Search Articles</string>
+
+    <!-- Strings used in new User screen -->
+    <string name="iah_new_user_title">Register New User</string>
+    <string name="iah_firstname_hint">First Name</string>
+    <string name="iah_lastname_hint">Last Name</string>
+    <string name="iah_email_hint">Email Address</string>
+    <string name="iah_new_user_message">Please enter your contact details to reach you</string>
+
+    <!-- Strings used in new Issue screen -->
+    <string name="iah_issue_created_raised">Your issue has been created and raised.</string>
+    <string name="iah_new_issue_title">Contact support</string>
+    <string name="iah_subject_hint">Subject</string>
+    <string name="iah_message_hint">Message</string>
+
+    <!-- Strings used in issue detail screen -->
+    <string name="iah_addreply_hint">Add Reply</string>
+    <string name="iah_sendbutton_title">Send</string>
+    <string name="iah_me">Me</string>
+    <string name="iah_staff">Staff</string>
+
+    <!-- Strings used as attachment options in issue detail and new issue screens -->
+    <string name="iah_change">Change</string>
+    <string name="iah_remove">Remove</string>
+    <string name="iah_select_picture">Select Picture</string>
+
+    <!-- Strings used in attachment screen -->
+    <string name="iah_attachment">Attachment</string>
+    <string name="iah_attachments">Attachments</string>
+
+    <string name="iah_attachment_edit">Edit Attachment</string>
+    <string name="iah_attach">Attach</string>
+    <string name="iah_discard">Discard</string>
+    <string name="iah_clear">Clear</string>
+
+    <!-- Strings used in article screen -->
+    <string name="iah_article">Article</string>
+
+    <!-- Strings used as Menu items -->
+    <string name="iah_next">Next</string>
+    <string name="iah_done">Done</string>
+    <string name="iah_search">Search</string>
+
+    <!-- Strings related to downloads -->
+    <string name="iah_download">Download</string>
+    <string name="iah_downloading_attachment">Downloading Attachment</string>
+    <string name="iah_download_complete">Download complete</string>
+    <string name="iah_loading">Loading...</string>
+    <string name="iah_notify_download_complete">You will be notified when the download finishes.</string>
+    <string name="iah_open_with">Open with</string>
+
+    <!-- String used in error messages -->
+    <string name="iah_error">Error</string>
+    <string name="iah_error_check_network_connection">Please check your network connection</string>
+    <string name="iah_error_during_download">Error during download</string>
+    <string name="iah_error_enter_all_fields_to_register">Please enter all the fields to register successfully</string>
+    <string name="iah_error_enter_valid_email">Please enter a valid email address</string>
+    <string name="iah_error_fetching_attachment">Error in fetching Attachment</string>
+    <string name="iah_error_fetching_articles">Error in fetching Articles</string>
+    <string name="iah_error_fetching_articles_issues">Error in fetching Articles and Issues</string>
+    <string name="iah_error_fetching_ticket_updates">Error in fetching ticket updates</string>
+    <string name="iah_error_invalid_email">Invalid Email</string>
+    <string name="iah_error_posting_reply">Error in posting your reply, please check your network connection</string>
+    <string name="iah_error_reporting_issue">Error in reporting issue</string>
+    <string name="iah_error_subject_message_empty">Subject and message cannot be empty</string>
+
+</resources>

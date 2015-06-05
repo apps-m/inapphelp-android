@@ -1,0 +1,20 @@
+<resources>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="iah_activity_horizontal_margin">16dp</dimen>
+    <dimen name="iah_activity_vertical_margin">16dp</dimen>
+    
+	<dimen name="iah_default_text_size">20sp</dimen>
+	<dimen name="iah_listView_divider_height">0.5dip</dimen>
+	<dimen name="iah_listView_header_TextSize">18sp</dimen>
+	<dimen name="iah_listView_ChildView_TextSize">18sp</dimen>
+	<dimen name="iah_message_TextSize">18sp</dimen>
+	<dimen name="iah_small_TextSize">13sp</dimen>
+	<dimen name="iah_button_marginSize">32dp</dimen>
+	<dimen name="iah_button_textSize">20sp</dimen>
+	<dimen name="iah_smallTextMaxWidth">100dp</dimen>
+	<dimen name="iah_chatbubbleMarginWidth">4dp</dimen>
+
+    <dimen name="iah_color_button_size">30dp</dimen>
+
+</resources>

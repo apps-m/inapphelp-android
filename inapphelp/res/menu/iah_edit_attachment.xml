@@ -1,0 +1,13 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="ru.appsm.inapphelp.activities.EditAttachmentActivity" >
+
+    <item
+        android:id="@+id/attach"
+        android:orderInCategory="1"
+        app:showAsAction="always"
+        android:icon="@drawable/iah_action_accept"
+        android:title="@string/iah_attach" />
+
+</menu>
