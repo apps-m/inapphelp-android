@@ -236,7 +236,6 @@ public class IAHHelpDesk {
     /**
      *
      * @return if credit can be shown.
-     * @default Yes
      */
     public boolean getShowCredits() {
         return this.showCredits;

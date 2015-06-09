@@ -123,8 +123,6 @@ public abstract class IAHGear {
      * Set this parameter, if gear is not implementing handling of Issues. Doing this, default email client will be open with given support Email Address.
      * Then there is no need to implement issues fetching related methods.
      *
-     * @default  it is considered that gear is gonna implement ticket fetching.
-     *
      * @param companySupportEmailAddress
      */
 	public void setNotImplementingTicketsFetching(String companySupportEmailAddress) {
@@ -142,8 +140,6 @@ public abstract class IAHGear {
     /**
      * Returns if gear have implemented Ticket Fetching. Modify this parameter using {@link #setNotImplementingTicketsFetching(java.lang.String) setNotImplementingTicketsFetching}
      *
-     * @default true
-     *
      * @return
      */
     public boolean haveImplementedTicketFetching() {
@@ -152,8 +148,6 @@ public abstract class IAHGear {
     /**
      * Set this parameter, if gear is not implementing handling of FAQ. Doing this, FAQ will be fetched from article path.
      * Then there is no need to implement issues fetching related methods.
-     *
-     * @default  it is considered that gear is gonna implement email fetching.
      *
      * @param articleResid
      */
@@ -173,8 +167,6 @@ public abstract class IAHGear {
     /**
      * Returns if gear have implemented KB Fetching. Modify this parameter using {@link #setNotImplementingKBFetching(int) setNotImplementingKBFetching}
      *
-     * @default true
-     *
      * @return
      */
     public boolean haveImplementedKBFetching() {
@@ -185,8 +177,6 @@ public abstract class IAHGear {
      *
      * If this parameter is set, message written by user in chat screen and new issue screen will be returned in HTML format.
      *
-     * @default false
-     *
      * @param htmlEnabled
      */
 	public void uploadMessageAsHtmlString(boolean htmlEnabled) {
@@ -195,8 +185,6 @@ public abstract class IAHGear {
 
     /**
      * returns if gear can upload message as html string.
-     *
-     * @default false
      *
      * @return
      */
@@ -209,8 +197,6 @@ public abstract class IAHGear {
      *
      * Sets maximum number of attachment gears can handle.
      *
-     * @default 1
-     *
      * @param numberOfAttachmentGearCanHandle
      */
 	public void setNumberOfAttachmentGearCanHandle (int numberOfAttachmentGearCanHandle) {
@@ -220,7 +206,6 @@ public abstract class IAHGear {
     /**
      *
      * @return maximum number of attachment gear can handle.
-     * @default is 1
      */
 	public int getNumberOfAttachmentGearCanHandle() {
 		return numberOfAttachmentGearCanHandle;
@@ -229,8 +214,6 @@ public abstract class IAHGear {
 
     /**
      * if true, gear don't have to return back HSTicketUpdate object, after a reply is been added.
-     *
-     * @default: false, means it is necessary for the gear to return HSTicketUpdate object, after a reply is been added.
      *
      * @param canIgnore
      */
