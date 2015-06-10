@@ -19,10 +19,10 @@ Installing the HelpStack library is fairly straight-forward.
           jcenter()
         }
         
-2. Add *ru.apps-m:inapphelp:0.0.1* as a dependency in the same build.gradle
+2. Add *ru.apps-m:inapphelp:0.0.2* as a dependency in the same build.gradle
         
         dependencies {
-          compile 'ru.apps-m:inapphelp:0.0.1'
+          compile 'ru.apps-m:inapphelp:0.0.2'
         }
 
 ## External Dependencies
