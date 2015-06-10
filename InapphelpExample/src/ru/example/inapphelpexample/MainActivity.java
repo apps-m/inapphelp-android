@@ -71,7 +71,7 @@ public class MainActivity extends ActionBarActivity {
 				
 				@Override
 				public void onClick(View v) {
-					IAHHelpDesk.getInstance().showHelp(getActivity());
+					IAHHelpDesk.showHelp(getActivity());
 				}
 			});
 			return rootView;

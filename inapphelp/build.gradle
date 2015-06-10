@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
-apply plugin: 'maven'
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: "com.jfrog.bintray"
 
 dependencies {
     compile fileTree(dir: 'libs', include: '*.jar')
@@ -15,6 +16,10 @@ dependencies {
     compile 'org.apache.httpcomponents:httpmime:4.2.6'
     compile 'com.mcxiaoke.volley:library:1.0.5'
 }
+
+def siteUrl = 'https://github.com/apps-m/inapphelp-android'      // Homepage URL of the library
+def gitUrl = 'https://github.com/apps-m/inapphelp-android.git'   // Git repository URL
+group = "ru.apps-m"                      // Maven Group ID for the artifact
 
 android {
     compileSdkVersion 19
@@ -45,13 +50,61 @@ android {
     }
 }
 
-uploadArchives {
-    repositories.mavenDeployer {
-        pom.groupId = 'ru.apps-m'
-        pom.artifactId = 'inapphelp'
-        pom.version = '0.0.1'
-        // Add other pom properties here if you want (developer details / licenses)
-        repository(url: "file:///Users/user/Desktop/gradleRelease/")
+install {
+    repositories.mavenInstaller {
+        // This generates POM.xml with proper parameters
+        pom {
+            project {
+                packaging 'aar'
+
+                // Add your description here
+                name 'Inapphelp'
+                description = 'Inapphelp ticket system android sdk.'
+                url siteUrl
+
+                // Set your license
+                licenses {
+                    license {
+                        name 'The MIT License (MIT)'
+                        url 'http://opensource.org/licenses/MIT'
+                    }
+                }
+                developers {
+                    developer {
+                        id 'mnill'
+                        name 'Ilya Kirichek'
+                        email 'mnillcoway@gmail.com'
+                    }
+                }
+                scm {
+                    connection gitUrl
+                    developerConnection gitUrl
+                    url siteUrl
+                }
+            }
+        }
+    }
+}
+
+bintray {
+    user = bintrayUser
+    key = bintrayApikey
+
+    configurations = ['archives']
+    pkg {
+        repo = "maven"
+        // it is the name that appears in bintray when logged
+        name = "inapphelp"
+        websiteUrl = siteUrl
+        vcsUrl = gitUrl
+        licenses = ["MIT"]
+        publish = true
+        version {
+            gpg {
+                sign = true //Determines whether to GPG sign the files. The default is false
+                passphrase = bintrayGpgPassword
+            }
+        }
     }
 }
 

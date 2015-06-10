@@ -39,7 +39,6 @@ public class IAHApplication extends Application{
 	public void onCreate() {
 		super.onCreate();
 
-//		helpStack = HSHelpStack.getInstance(this);
 		IAHHelpDesk.init(this, "apps-m", "1", "1r9lhwxUJ5ChZ-tOR5R2nkJeZWyd7szOu47_UULXhEY");
 
 		context = getApplicationContext();

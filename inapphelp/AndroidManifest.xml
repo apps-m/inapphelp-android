@@ -17,7 +17,7 @@
             android:name="ru.appsm.inapphelp.activities.HomeActivity"
             android:label="@string/iah_app_name" android:exported="false">
             <intent-filter>
-                <action android:name="com.tenmiles.helpstack.ShowHelp"/>
+                <action android:name="ru.appsm.inapphelp.ShowHelp"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>

@@ -30,6 +30,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.net.http.AndroidHttpClient;
 import android.os.Build;
 import android.os.Bundle;
@@ -132,9 +134,11 @@ public class IAHHelpDesk {
                     .setContentTitle(extras.getString("notificationTitle"))
                     .setContentText(extras.getString("notificationMessage"))
                     .setAutoCancel(true)
-                    .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE | Notification.DEFAULT_LIGHTS)
                     .setContentIntent(contentIntent);
 
+            if (extras.getBoolean("sound", false)) {
+                mBuilder.setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE | Notification.DEFAULT_LIGHTS);
+            }
             mNotificationManager.notify(notId, mBuilder.build());
         } else {
             Log.i(TAG, "Empty or wrong push intent");
@@ -207,8 +211,12 @@ public class IAHHelpDesk {
      *
      * @param activity
      */
-	public void showHelp(Activity activity) {
-		activity.startActivity(new Intent("com.tenmiles.helpstack.ShowHelp"));
+	public static void showHelp(Activity activity) {
+        if (singletonInstance != null) {
+            activity.startActivity(new Intent("ru.appsm.inapphelp.ShowHelp"));
+        } else {
+            Log.e(TAG, "Inapphelp not inited");
+        }
 	}
 
     /**
