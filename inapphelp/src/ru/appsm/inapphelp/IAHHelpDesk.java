@@ -136,7 +136,7 @@ public class IAHHelpDesk {
                     .setAutoCancel(true)
                     .setContentIntent(contentIntent);
 
-            if (extras.getBoolean("sound", false)) {
+            if (extras.getString("sound").equals("default")) {
                 mBuilder.setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE | Notification.DEFAULT_LIGHTS);
             }
             mNotificationManager.notify(notId, mBuilder.build());

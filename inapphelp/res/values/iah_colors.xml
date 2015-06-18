@@ -17,6 +17,6 @@
     <color name="iah_rightchat_messageTextcolor">#FFFFFF</color>
     <color name="iah_message_moreinfoTextColor">#000000</color>
     <color name="iah_button_background_color">#FFFFFF</color>
-    <color name="iah_buttonTextcolor">#DE2527</color>
+    <color name="iah_buttonTextcolor">#228CD1</color>
     <color name="iah_editTextcolor">#000000</color>
 </resources>

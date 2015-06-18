@@ -45,7 +45,6 @@ public class GcmIntentService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        Log.i(TAG, "onHandleIntent");
 
         Bundle extras = intent.getExtras();
         GoogleCloudMessaging gcm = GoogleCloudMessaging.getInstance(this);
@@ -65,7 +64,8 @@ public class GcmIntentService extends IntentService {
                 //sendNotification("Deleted messages on server: " + extras.toString());
                 // If it's a regular GCM message, do some work.
             } else if (GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE.equals(messageType)) {
-                if (extras.getString("source").equals("inapphelp")) {
+                String source = extras.getString("source");
+                if ((source != null) && source.equals("inapphelp")) {
                     Log.i("inapphelp", "Push from inapphelp");
                     IAHHelpDesk.HandelPushIntentWithContext(intent, getApplicationContext());
                 } else {
@@ -84,28 +84,6 @@ public class GcmIntentService extends IntentService {
         mNotificationManager = (NotificationManager)
                 this.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        Log.i("Mnill", "Extra " + msg);
-//        Intent notificationIntent = new Intent(this, FeedActivity.class);
-//
-//        notificationIntent.putExtra("pushpost", msg);
-//        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-//
-//        Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-//        long[] pattern = {500,0,500};
-//
-//        PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
-//                notificationIntent, PendingIntent.FLAG_CANCEL_CURRENT);
-//
-//        NotificationCompat.Builder mBuilder =
-//                new NotificationCompat.Builder(this)
-//                        .setSmallIcon(R.drawable.ic_launcher)
-//                        .setContentTitle("Time for post!")
-//                        .setStyle(new NotificationCompat.BigTextStyle()
-//                                .bigText("Click to post."))
-//                        .setAutoCancel(true)
-//                        .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE | Notification.DEFAULT_LIGHTS)
-//                        .setContentIntent(contentIntent);
-//
-//        mNotificationManager.notify(notificationId, mBuilder.build());
+        Log.i("Inapphelp", "Extra " + msg);
     }
 }
