@@ -15,3 +15,7 @@ allprojects {
         jcenter()
     }
 }
+
+subprojects {
+    task listAllDependencies(type: DependencyReportTask) {}
+}

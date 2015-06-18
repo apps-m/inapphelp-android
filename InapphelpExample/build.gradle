@@ -45,3 +45,19 @@ android {
         exclude 'META-INF/LICENSE'
     }
 }
+
+task allDeps << {
+    println "All Dependencies:"
+    allprojects.each { p ->
+        println()
+        println " $p.name ".center( 60, '*' )
+        println()
+        p.configurations.all.findAll { !it.allDependencies.empty }.each { c ->
+            println " ${c.name} ".center( 60, '-' )
+            c.allDependencies.each { dep ->
+                println "$dep.group:$dep.name:$dep.version"
+            }
+            println "-" * 60
+        }
+    }
+}

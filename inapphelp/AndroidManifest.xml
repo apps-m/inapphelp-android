@@ -12,10 +12,11 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-    <application >
+    <application>
         <activity
             android:name="ru.appsm.inapphelp.activities.HomeActivity"
-            android:label="@string/iah_app_name" android:exported="false">
+            android:label="@string/iah_app_name" android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light">
             <intent-filter>
                 <action android:name="ru.appsm.inapphelp.ShowHelp"/>
                 <category android:name="android.intent.category.DEFAULT"/>
@@ -23,27 +24,34 @@
         </activity>
         <activity
             android:name="ru.appsm.inapphelp.activities.NewIssueActivity"
-            android:windowSoftInputMode="adjustResize" >
+            android:windowSoftInputMode="adjustResize"
+            android:theme="@style/Theme.AppCompat.Light">
         </activity>
         <activity
             android:name="ru.appsm.inapphelp.activities.NewUserActivity"
-            android:windowSoftInputMode="adjustResize" >
+            android:windowSoftInputMode="adjustResize"
+            android:theme="@style/Theme.AppCompat.Light">
         </activity>
         <activity
             android:name="ru.appsm.inapphelp.activities.IssueDetailActivity"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" >
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
+            android:theme="@style/Theme.AppCompat.Light">
         </activity>
         <activity
-            android:name="ru.appsm.inapphelp.activities.ArticleActivity">
+            android:name="ru.appsm.inapphelp.activities.ArticleActivity"
+            android:theme="@style/Theme.AppCompat.Light">
         </activity>
         <activity
-            android:name="ru.appsm.inapphelp.activities.SectionActivity">
+            android:name="ru.appsm.inapphelp.activities.SectionActivity"
+            android:theme="@style/Theme.AppCompat.Light">
         </activity>
         <activity
-            android:name="ru.appsm.inapphelp.activities.ImageAttachmentDisplayActivity">
+            android:name="ru.appsm.inapphelp.activities.ImageAttachmentDisplayActivity"
+            android:theme="@style/Theme.AppCompat.Light">
         </activity>
         <activity
             android:name="ru.appsm.inapphelp.activities.EditAttachmentActivity"
+            android:theme="@style/Theme.AppCompat.Light"
             android:screenOrientation="portrait">
         </activity>
 
