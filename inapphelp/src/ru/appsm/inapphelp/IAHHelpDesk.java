@@ -50,6 +50,9 @@ import ru.appsm.inapphelp.logic.IAHGear;
 import ru.appsm.inapphelp.logic.IAHSource;
 
 import org.apache.http.HttpResponse;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.Map;
@@ -107,41 +110,115 @@ public class IAHHelpDesk {
 
     /**
      *
+     * Open support for push data. Special cordova method.
+     *
+     * @param data
+     * @param activity
+     */
+    public static void OpenSupportForData(JSONObject data, Activity activity) {
+        Log.i(TAG, "handle push");
+        if (data != null && data.has("secretkey") && data.has("userid") && data.has("appkey") && data.has("appid") && data.has("email") && data.has("message") && data.has("title") && data.has("notId") && data.has("msgId")) {
+            try {
+                Intent notificationIntent = new Intent(activity.getApplicationContext(), IssueDetailActivity.class);
+                notificationIntent.putExtra("fromPush", true);
+                notificationIntent.putExtra("userid", data.getString("userid"));
+                notificationIntent.putExtra("appid", data.getString("appid"));
+                notificationIntent.putExtra("appkey", data.getString("appkey"));
+                notificationIntent.putExtra("secretkey", data.getString("secretkey"));
+                notificationIntent.putExtra("email", data.getString("email"));
+                notificationIntent.putExtra("msgId", data.getString("msgId"));
+                activity.startActivity(notificationIntent);
+            } catch (JSONException e ) {
+                Log.i(TAG, "Fail to parse push data");
+            }
+        } else {
+            Log.i(TAG, "Empty or wrong push data");
+        }
+    }
+
+    /**
+     *
+     * Handle push notification.
+     *
      * @param intent
      * @param context
      */
     public static void HandelPushIntentWithContext(Intent intent, Context context){
         Log.i(TAG, "handle push");
         Bundle extras = intent.getExtras();
-        if (extras != null && extras.containsKey("secretkey") && extras.containsKey("userid") && extras.containsKey("appkey") && extras.containsKey("appid") && extras.containsKey("email") && extras.containsKey("notificationMessage") && extras.containsKey("notificationTitle") && extras.containsKey("notId") && extras.containsKey("msgId")) {
+        if (extras != null && extras.containsKey("secretkey") && extras.containsKey("userid") && extras.containsKey("appkey") && extras.containsKey("appid") && extras.containsKey("email") && extras.containsKey("message") && extras.containsKey("title") && extras.containsKey("notId") && extras.containsKey("msgId")) {
+            JSONObject data = new JSONObject();
             int notId = 1;
             try {
                 notId = Integer.parseInt(extras.getString("notId"));
             } catch (NumberFormatException e ) {
                 notId = 1;
             }
-            mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-            Intent notificationIntent = new Intent(context, IssueDetailActivity.class);
-            notificationIntent.putExtra("fromPush", true);
-            notificationIntent.putExtra("userid", extras.getString("userid"));
-            notificationIntent.putExtra("appid", extras.getString("appid"));
-            notificationIntent.putExtra("appkey", extras.getString("appkey"));
-            notificationIntent.putExtra("secretkey", extras.getString("secretkey"));
-            notificationIntent.putExtra("email", extras.getString("email"));
-            PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
-            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context)
-                    .setSmallIcon(getApplicationIcon(context))
-                    .setContentTitle(extras.getString("notificationTitle"))
-                    .setContentText(extras.getString("notificationMessage"))
-                    .setAutoCancel(true)
-                    .setContentIntent(contentIntent);
-
-            if (extras.getString("sound").equals("default")) {
-                mBuilder.setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE | Notification.DEFAULT_LIGHTS);
+            try {
+                data.put("notId", notId);
+                data.put("userid",  extras.getString("userid"));
+                data.put("appid",  extras.getString("appid"));
+                data.put("appkey",  extras.getString("appkey"));
+                data.put("secretkey",  extras.getString("secretkey"));
+                data.put("email",  extras.getString("email"));
+                data.put("title",  extras.getString("title"));
+                data.put("message",  extras.getString("message"));
+                data.put("msgId",  extras.getString("msgId"));
+                data.put("sound", extras.getString("sound").equals("default"));
+                IAHHelpDesk.BuildNotificationForDataWithContext(data, context);
+            } catch (JSONException e) {
+                Log.i(TAG, "Fail to parse push data");
             }
-            mNotificationManager.notify(notId, mBuilder.build());
         } else {
             Log.i(TAG, "Empty or wrong push intent");
+        }
+    }
+
+    /**
+     *
+     * Handle push notification. Cordova.
+     *
+     * @param data
+     * @param context
+     */
+    public static void BuildNotificationForDataWithContext(JSONObject data, Context context){
+        Log.i(TAG, "Create notifications");
+        if (data != null && data.has("secretkey") && data.has("userid") && data.has("appkey") && data.has("appid") && data.has("email") && data.has("message") && data.has("title") && data.has("notId") && data.has("msgId")) {
+            try {
+                int notId = 1;
+                try {
+                    notId = data.getInt("notId");
+                } catch (NumberFormatException e ) {
+                    notId = 1;
+                }
+                mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+                Intent notificationIntent = new Intent(context, IssueDetailActivity.class);
+                notificationIntent.putExtra("fromPush", true);
+                notificationIntent.putExtra("userid", data.getString("userid"));
+                notificationIntent.putExtra("appid", data.getString("appid"));
+                notificationIntent.putExtra("appkey", data.getString("appkey"));
+                notificationIntent.putExtra("secretkey", data.getString("secretkey"));
+                notificationIntent.putExtra("email", data.getString("email"));
+
+                PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
+
+                NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context)
+                        .setSmallIcon(getApplicationIcon(context))
+                        .setContentTitle(data.getString("title"))
+                        .setContentText(data.getString("message"))
+                        .setAutoCancel(true)
+                        .setContentIntent(contentIntent);
+
+                if (data.getBoolean("sound")) {
+                    mBuilder.setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE | Notification.DEFAULT_LIGHTS);
+                }
+
+                mNotificationManager.notify(notId, mBuilder.build());
+            } catch (JSONException e ) {
+                Log.i(TAG, "Fail to parse push data");
+            }
+        } else {
+            Log.i(TAG, "Empty or wrong push data");
         }
     }
 
@@ -231,23 +308,6 @@ public class IAHHelpDesk {
         gear.setNotImplementingKBFetching(articleResId);
     }
 
-    /**
-     *
-     * Shows a credit @ bottom of the page.
-     *
-     * @param showCredits
-     */
-    public void setShowCredits(boolean showCredits) {
-        this.showCredits = showCredits;
-    }
-
-    /**
-     *
-     * @return if credit can be shown.
-     */
-    public boolean getShowCredits() {
-        return this.showCredits;
-    }
 
     /**
      *
@@ -287,7 +347,6 @@ public class IAHHelpDesk {
             };
 
             mRequestQueue = Volley.newRequestQueue(context, stack);
-
         } else {
             HttpClientStack stack = new HttpClientStack(AndroidHttpClient.newInstance("volley/0")) {
                 @Override
@@ -300,7 +359,6 @@ public class IAHHelpDesk {
             };
             mRequestQueue = Volley.newRequestQueue(context, stack);
         }
-        this.setShowCredits(false);
     }
 }
 
