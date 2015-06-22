@@ -164,7 +164,7 @@ public class IAHHelpDesk {
                 data.put("title",  extras.getString("title"));
                 data.put("message",  extras.getString("message"));
                 data.put("msgId",  extras.getString("msgId"));
-                data.put("sound", extras.getString("sound").equals("default"));
+                data.put("sound", extras.getString("sound"));
                 IAHHelpDesk.BuildNotificationForDataWithContext(data, context);
             } catch (JSONException e) {
                 Log.i(TAG, "Fail to parse push data");
@@ -188,9 +188,10 @@ public class IAHHelpDesk {
                 int notId = 1;
                 try {
                     notId = data.getInt("notId");
-                } catch (NumberFormatException e ) {
+                } catch (JSONException e ) {
                     notId = 1;
                 }
+
                 mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
                 Intent notificationIntent = new Intent(context, IssueDetailActivity.class);
                 notificationIntent.putExtra("fromPush", true);
@@ -209,12 +210,12 @@ public class IAHHelpDesk {
                         .setAutoCancel(true)
                         .setContentIntent(contentIntent);
 
-                if (data.getBoolean("sound")) {
+                if (data.getString("sound").equals("default")) {
                     mBuilder.setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE | Notification.DEFAULT_LIGHTS);
                 }
 
                 mNotificationManager.notify(notId, mBuilder.build());
-            } catch (JSONException e ) {
+            } catch (JSONException e) {
                 Log.i(TAG, "Fail to parse push data");
             }
         } else {
