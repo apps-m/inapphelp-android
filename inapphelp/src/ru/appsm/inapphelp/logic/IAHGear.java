@@ -25,6 +25,9 @@ package ru.appsm.inapphelp.logic;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.VolleyError;
+
+import java.util.Map;
+
 import ru.appsm.inapphelp.model.IAHKBItem;
 import ru.appsm.inapphelp.model.IAHUploadAttachment;
 import ru.appsm.inapphelp.model.IAHUser;
@@ -115,7 +118,7 @@ public abstract class IAHGear {
 	 * @param success
 	 * @param errorListener
 	 */
-	public void addReplyOnATicket(String cancelTag, String message, String deviceInfo, IAHUploadAttachment[] attachments, String pushToken, Long get_updates_from_time, IAHUser user, RequestQueue queue, OnFetchedArraySuccessListener success, ErrorListener errorListener) {
+	public void addReplyOnATicket(String cancelTag, String message, Map[] deviceInfo, IAHUploadAttachment[] attachments, String pushToken, Long get_updates_from_time, IAHUser user, RequestQueue queue, OnFetchedArraySuccessListener success, ErrorListener errorListener) {
 		errorListener.onErrorResponse(new VolleyError("Not implemented method"));
 	}
 

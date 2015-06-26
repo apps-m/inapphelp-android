@@ -61,6 +61,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 
@@ -163,7 +164,7 @@ public class IAHInapphelpGear extends IAHGear {
 	}
 
 	@Override
-	public void addReplyOnATicket(String cancelTag, String message, String deviceInfo, IAHUploadAttachment[] attachments,  String pushToken, Long get_updates_from_time, IAHUser user,
+	public void addReplyOnATicket(String cancelTag, String message, Map[] deviceInfo, IAHUploadAttachment[] attachments,  String pushToken, Long get_updates_from_time, IAHUser user,
 			RequestQueue queue, OnFetchedArraySuccessListener success,
 			ErrorListener errorListener) {
 
@@ -174,7 +175,6 @@ public class IAHInapphelpGear extends IAHGear {
         properties.put("userid", user.getUserId());
         properties.put("appid", this.app_id);
         properties.put("appkey", this.app_key);
-        properties.put("deviceinfo", deviceInfo);
 
         if (user.getUserSecret() != null)
             properties.put("secretkey", user.getUserSecret());
@@ -185,6 +185,8 @@ public class IAHInapphelpGear extends IAHGear {
 
         properties.put("text", message);
         properties.put("from", get_updates_from_time.toString());
+
+        properties.put("info", deviceInfo);
 
         String url = getApiUrl().concat("chat/submit");
 
@@ -342,11 +344,28 @@ public class IAHInapphelpGear extends IAHGear {
             Enumeration<Object> enumKey = requestProperties.keys();
             while(enumKey.hasMoreElements()) {
                 String key = (String) enumKey.nextElement();
-                String val = requestProperties.getProperty(key);
-                try {
-                    entity.addPart(key, new StringBody(val));
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
+                if (key.equals("info")) {
+                    int count = 0;
+                    Map<String, String>[] val = (Map<String, String>[]) requestProperties.get(key);
+                    for (Map<String, String> info: val) {
+                        for (Map.Entry<String, String> entry : info.entrySet()) {
+                            String infoKey = entry.getKey();
+                            String infoValue = entry.getValue();
+                            try {
+                                entity.addPart(key +"["+count+"]"+"["+infoKey+"]", new StringBody(infoValue));
+                            } catch (UnsupportedEncodingException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        count++;
+                    }
+                } else {
+                    String val = requestProperties.getProperty(key);
+                    try {
+                        entity.addPart(key, new StringBody(val));
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
 

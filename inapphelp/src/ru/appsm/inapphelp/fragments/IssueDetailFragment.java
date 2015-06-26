@@ -91,6 +91,7 @@ public class IssueDetailFragment extends IAHFragmentParent
 
 	private Boolean updateTicketInProgress = false;
 	private Handler updateHandler;
+
 	private int updateInterval = 10000;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -243,9 +244,9 @@ public class IssueDetailFragment extends IAHFragmentParent
 					refreshList();
 					scrollListToBottom();
 				}
+				updateHandler.postDelayed(updateChecker, updateInterval);
 			}
 		}, new ErrorListener() {
-
 			@Override
 			public void onErrorResponse(VolleyError error) {
 				updateTicketInProgress = false;
@@ -679,7 +680,6 @@ public class IssueDetailFragment extends IAHFragmentParent
 		@Override
 		public void run() {
 			refreshUpdateFromServer(); //this function can change value of mInterval.
-			updateHandler.postDelayed(updateChecker, updateInterval);
 		}
 	};
 

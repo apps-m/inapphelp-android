@@ -23,9 +23,14 @@
 package ru.appsm.inapphelp.logic;
 
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.provider.Settings;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 
 import com.android.volley.RequestQueue;
@@ -52,6 +57,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 
 public class IAHSource {
 	private static final String TAG = IAHSource.class.getSimpleName();
@@ -265,26 +274,101 @@ public class IAHSource {
 		}
 	}
 
-	private static String getDeviceInformation(Context activity) {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Android version:");
-		builder.append(Build.VERSION.SDK_INT);
-		builder.append(",Device brand : ");
-		builder.append(Build.MODEL);
-		builder.append(",Application package:");
-		try {
-			builder.append(activity.getPackageManager().getPackageInfo(activity.getPackageName(),0).packageName);
-		} catch (NameNotFoundException e) {
-			builder.append("NA");
-		}
-		builder.append(",Application version:");
-		try {
-			builder.append(activity.getPackageManager().getPackageInfo(activity.getPackageName(),0).versionCode);
-		} catch (NameNotFoundException e) {
-			builder.append("NA");
-		}
+	private static Map<String,String>[] getDeviceInformation(Context activity) {
 
-		return builder.toString();
+		ArrayList<Map<String,String>> deviceInfo = new ArrayList<Map<String,String>>();
+
+		Map<String,String> appId = new HashMap<String,String>();
+		appId.put("k", "Application id");
+		try {
+			appId.put("v", activity.getPackageManager().getPackageInfo(activity.getPackageName(),0).packageName);
+		} catch (NameNotFoundException e) {
+			appId.put("v", "Unknown");
+		}
+		appId.put("t", "Application");
+		deviceInfo.add(appId);
+
+		Map<String,String> appV = new HashMap<String,String>();
+		appV.put("k", "Application version");
+		appV.put("t", "Application");
+		try {
+			String versionName = activity.getPackageManager().getPackageInfo(activity.getPackageName(), 0).versionName;
+			appV.put("v", versionName);
+		} catch (NameNotFoundException e) {
+			appV.put("v", "Unknown");
+		}
+		deviceInfo.add(appV);
+
+		Map<String,String> device = new HashMap<String,String>();
+		device.put("k", "Device");
+		device.put("v", android.os.Build.DEVICE);
+		device.put("t", "Device");
+		deviceInfo.add(device);
+
+		Map<String,String> model = new HashMap<String,String>();
+		model.put("k", "Model");
+		model.put("v", android.os.Build.MODEL + " ("+ android.os.Build.PRODUCT + ")");
+		model.put("t", "Device");
+		deviceInfo.add(model);
+
+		Map<String,String> OS = new HashMap<String,String>();
+		OS.put("k", "OS");
+		OS.put("v", System.getProperty("os.version") + "(" + android.os.Build.VERSION.INCREMENTAL + ")");
+		OS.put("t", "Device");
+		deviceInfo.add(OS);
+
+		Map<String,String> language = new HashMap<String,String>();
+		language.put("k", "Language");
+		language.put("v", Locale.getDefault().getLanguage());
+		language.put("t", "Device");
+		deviceInfo.add(language);
+
+		Map<String,String> network = new HashMap<String,String>();
+		language.put("k", "Network");
+		language.put("v", getNetworkClass(activity));
+		language.put("t", "Device");
+		deviceInfo.add(network);
+
+
+		Map<String,String>[] array= new HashMap[deviceInfo.size()];
+
+		array = deviceInfo.toArray(array);
+		return array;
+	}
+
+	public static String getNetworkClass(Context context) {
+		ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo info = cm.getActiveNetworkInfo();
+		if(info==null || !info.isConnected())
+			return "-"; //not connected
+		if(info.getType() == ConnectivityManager.TYPE_WIFI)
+			return "WiFi";
+		if(info.getType() == ConnectivityManager.TYPE_MOBILE){
+			int networkType = info.getSubtype();
+			switch (networkType) {
+				case TelephonyManager.NETWORK_TYPE_GPRS:
+				case TelephonyManager.NETWORK_TYPE_EDGE:
+				case TelephonyManager.NETWORK_TYPE_CDMA:
+				case TelephonyManager.NETWORK_TYPE_1xRTT:
+				case TelephonyManager.NETWORK_TYPE_IDEN: //api<8 : replace by 11
+					return "2G";
+				case TelephonyManager.NETWORK_TYPE_UMTS:
+				case TelephonyManager.NETWORK_TYPE_EVDO_0:
+				case TelephonyManager.NETWORK_TYPE_EVDO_A:
+				case TelephonyManager.NETWORK_TYPE_HSDPA:
+				case TelephonyManager.NETWORK_TYPE_HSUPA:
+				case TelephonyManager.NETWORK_TYPE_HSPA:
+				case 12:
+				case 14:
+				case 15:
+					return "3G";
+				case 13:
+					return "4G";
+				default:
+					return "Unknown";
+			}
+		}
+		return "Unknown";
 	}
 
 	public void cancelOperation(String cancelTag) {

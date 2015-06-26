@@ -23,7 +23,7 @@ public class IAHApplication extends Application{
 
 	private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 	public static final String EXTRA_MESSAGE = "message";
-	public static final String PROPERTY_REG_ID = "386628386334";
+	public static final String PROPERTY_REG_ID = "837225305593";
 	private static final String PROPERTY_APP_VERSION = "1.0";
 
 	String TAG = "HelpstackExample";
@@ -39,7 +39,7 @@ public class IAHApplication extends Application{
 	public void onCreate() {
 		super.onCreate();
 
-		IAHHelpDesk.init(this, "apps-m", "1", "1r9lhwxUJ5ChZ-tOR5R2nkJeZWyd7szOu47_UULXhEY");
+		IAHHelpDesk.init(this, "apps-m", "5", "uHg3EeM_edk8AD0dlR6_dCUxfJRMrmWgpp99sKVSLDw");
 
 		context = getApplicationContext();
 
