@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package ru.example.inapphelpexample;
+package com.example.inapphelpexample;
 
 import android.app.IntentService;
 import android.app.NotificationManager;

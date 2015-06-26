@@ -1,4 +1,4 @@
-package ru.example.inapphelpexample;
+package com.example.inapphelpexample;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

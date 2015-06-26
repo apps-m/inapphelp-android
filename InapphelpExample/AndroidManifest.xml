@@ -6,7 +6,7 @@
     android:versionName="1.0.3" >
 
     <uses-sdk
-        android:minSdkVersion="11"
+        android:minSdkVersion="9"
         android:targetSdkVersion="19" />
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -15,17 +15,17 @@
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <permission android:name="com.test.gcm.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
-    <uses-permission android:name="com.example.helpstackexample.gcm.permission.C2D_MESSAGE" />
+    <uses-permission android:name="com.example.inapphelpexample.gcm.permission.C2D_MESSAGE" />
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/iah_launcher"
         android:label="@string/app_name"
         android:theme="@style/IAHAppBaseTheme"
-        android:name="ru.example.inapphelpexample.IAHApplication">
-        <service android:name="ru.example.inapphelpexample.GcmIntentService"/>
+        android:name="com.example.inapphelpexample.IAHApplication">
+        <service android:name="com.example.inapphelpexample.GcmIntentService"/>
         <receiver
-            android:name="ru.example.inapphelpexample.GcmBroadcastReceiver"
+            android:name="com.example.inapphelpexample.GcmBroadcastReceiver"
             android:permission="com.google.android.c2dm.permission.SEND" >
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
@@ -34,15 +34,12 @@
             </intent-filter>
         </receiver>
         <activity
-            android:name="ru.example.inapphelpexample.MainActivity"
+            android:name="com.example.inapphelpexample.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <meta-data android:name="com.crashlytics.ApiKey" android:value="1d530866e0cb30a5451eee4b86edfa0e9f13de4a"/>
     </application>
-
 </manifest>

@@ -1,4 +1,4 @@
-package ru.example.inapphelpexample;
+package com.example.inapphelpexample;
 
 import android.app.Application;
 import android.content.Context;

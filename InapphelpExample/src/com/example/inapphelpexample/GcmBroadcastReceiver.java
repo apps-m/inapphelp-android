@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ru.example.inapphelpexample;
+package com.example.inapphelpexample;
 
 import android.app.Activity;
 import android.content.ComponentName;

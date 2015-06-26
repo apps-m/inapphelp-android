@@ -6,7 +6,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="ru.example.inapphelpexample.MainActivity$PlaceholderFragment" >
+    tools:context="com.example.inapphelpexample.MainActivity$PlaceholderFragment" >
 
     <Button
         android:id="@+id/button1"
