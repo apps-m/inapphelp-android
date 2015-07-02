@@ -174,7 +174,7 @@ public class NewUserFragment extends IAHFragmentParent {
 				return false;
 			}
 
-            getHelpStackActivity().setSupportProgressBarIndeterminateVisibility(true);
+            getInapphelpActivity().setSupportProgressBarIndeterminateVisibility(true);
 
 			gearSource.checkForUserDetailsValidity("NEW_USER", getFirstName(), getLastName(), 
 					getEmailAdddress(), new OnFetchedSuccessListener() {
@@ -187,7 +187,7 @@ public class NewUserFragment extends IAHFragmentParent {
                             new OnNewTicketFetchedSuccessListener() {
                                 @Override
                                 public void onSuccess() {
-                                    getHelpStackActivity().setSupportProgressBarIndeterminateVisibility(false);
+                                    getInapphelpActivity().setSupportProgressBarIndeterminateVisibility(false);
                                     sendSuccessSignal((IAHUser)successObject);
                                     gearSource.clearTicketDraft();
                                     Toast.makeText(getActivity(), getResources().getString(ru.appsm.inapphelp.R.string.iah_issue_created_raised), Toast.LENGTH_LONG).show();
@@ -197,7 +197,7 @@ public class NewUserFragment extends IAHFragmentParent {
                                 @Override
                                 public void onErrorResponse(VolleyError error) {
                                     IAHUtils.showAlertDialog(getActivity(), getResources().getString(ru.appsm.inapphelp.R.string.iah_error_reporting_issue), getResources().getString(ru.appsm.inapphelp.R.string.iah_error_check_network_connection));
-                                    getHelpStackActivity().setSupportProgressBarIndeterminateVisibility(false);
+                                    getInapphelpActivity().setSupportProgressBarIndeterminateVisibility(false);
                                 }
                             });
 				}
@@ -205,7 +205,7 @@ public class NewUserFragment extends IAHFragmentParent {
 
 				@Override
 				public void onErrorResponse(VolleyError error) {
-					getHelpStackActivity().setSupportProgressBarIndeterminateVisibility(false);
+					getInapphelpActivity().setSupportProgressBarIndeterminateVisibility(false);
 				}
 			});
 			

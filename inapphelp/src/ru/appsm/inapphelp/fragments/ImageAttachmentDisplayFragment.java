@@ -138,7 +138,7 @@ public class ImageAttachmentDisplayFragment extends IAHFragmentParent {
     @Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if(item.getItemId() == ru.appsm.inapphelp.R.id.menu_download) {
-			DownloadAttachmentUtility.downloadAttachment(getActivity(), image_url, getHelpStackActivity().getTitle().toString());
+			DownloadAttachmentUtility.downloadAttachment(getActivity(), image_url, getInapphelpActivity().getTitle().toString());
 			return true;
 		}
 		return super.onOptionsItemSelected(item);

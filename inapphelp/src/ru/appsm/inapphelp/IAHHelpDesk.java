@@ -156,13 +156,13 @@ public class IAHHelpDesk {
             }
             try {
                 data.put("notId", notId);
-                data.put("userid",  extras.getString("userid"));
-                data.put("appid",  extras.getString("appid"));
-                data.put("appkey",  extras.getString("appkey"));
-                data.put("secretkey",  extras.getString("secretkey"));
-                data.put("email",  extras.getString("email"));
-                data.put("title",  extras.getString("title"));
-                data.put("message",  extras.getString("message"));
+                data.put("userid", extras.getString("userid"));
+                data.put("appid", extras.getString("appid"));
+                data.put("appkey", extras.getString("appkey"));
+                data.put("secretkey", extras.getString("secretkey"));
+                data.put("email", extras.getString("email"));
+                data.put("title", extras.getString("title"));
+                data.put("message", extras.getString("message"));
                 data.put("msgId",  extras.getString("msgId"));
                 data.put("sound", extras.getString("sound"));
                 IAHHelpDesk.BuildNotificationForDataWithContext(data, context);
@@ -225,14 +225,23 @@ public class IAHHelpDesk {
 
     private static int getApplicationIcon(Context context) {
         int appIconResId = 0;
-        try {
-            ApplicationInfo applicationInfo = context.getPackageManager().getApplicationInfo(context.getPackageName(), PackageManager.GET_META_DATA);
-            appIconResId = applicationInfo.icon;
-        } catch (PackageManager.NameNotFoundException e) {
-            Log.e(TAG, "Cannot find application icon");
-        }
+
+        appIconResId = getIconValue(context.getPackageName(), "ic_notify");
+
+        if (appIconResId == -1)
+            appIconResId = context.getApplicationInfo().icon;
+
         return appIconResId;
     }
+
+    private static int getIconValue(String className, String iconName) {
+        try {
+            Class<?> clazz  = Class.forName(className + ".R$drawable");
+            return (Integer) clazz.getDeclaredField(iconName).get(Integer.class);
+        } catch (Exception ignore) {}
+        return -1;
+    }
+
     /**
      *
      * Set custom user id
@@ -346,7 +355,6 @@ public class IAHHelpDesk {
                     return super.performRequest(request, headers);
                 }
             };
-
             mRequestQueue = Volley.newRequestQueue(context, stack);
         } else {
             HttpClientStack stack = new HttpClientStack(AndroidHttpClient.newInstance("volley/0")) {

@@ -32,6 +32,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.TextView;
@@ -61,6 +62,8 @@ public class HomeFragment extends IAHFragmentParent {
 
 	public static final int REQUEST_CODE_NEW_TICKET = 1003;
 
+	private  View report_an_issue_view;
+
 	private ExpandableListView mExpandableListView;
 	private LocalAdapter mAdapter;
 
@@ -81,6 +84,9 @@ public class HomeFragment extends IAHFragmentParent {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
+		// Initialize gear
+		gearSource = IAHSource.getInstance(getActivity());
+
 		View rootView = inflater.inflate(R.layout.iah_fragment_home, container, false);
 
 		// ListView
@@ -88,27 +94,24 @@ public class HomeFragment extends IAHFragmentParent {
 		mAdapter = new LocalAdapter(getActivity());
 
 		// report an issue
-		View report_an_issue_view = inflater.inflate(R.layout.iah_expandable_footer_report_issue, null);
+		report_an_issue_view = inflater.inflate(R.layout.iah_expandable_footer_report_issue, null);
+
+		if (!gearSource.isNewUser())
+			((Button) report_an_issue_view.findViewById(R.id.button1)).setText(getString(R.string.iah_view_issuebutton_title));
+
 		report_an_issue_view.findViewById(R.id.button1).setOnClickListener(reportIssueClickListener);
 		mExpandableListView.addFooterView(report_an_issue_view);
 		
-//		if (HSHelpStack.getInstance(getActivity()).getShowCredits()) {
-//			View show_credits_view = inflater.inflate(R.layout.iah_expandable_footer_powered_by_helpstack, null);
-//			mExpandableListView.addFooterView(show_credits_view);
-//		}
-
 		mExpandableListView.setAdapter(mAdapter);
 		mExpandableListView.setOnChildClickListener(expandableChildViewClickListener);
 
 		// Search fragment
 		mSearchFragment = new SearchFragment();
-		IAHFragmentManager.putFragmentInActivity(getHelpStackActivity(), R.id.search_container, mSearchFragment, "Search");
+		IAHFragmentManager.putFragmentInActivity(getInapphelpActivity(), R.id.search_container, mSearchFragment, "Search");
 		mSearchFragment.setOnReportAnIssueClickListener(reportAnIssueLisener);
 		// Add search Menu
 		setHasOptionsMenu(true);
 
-		// Initialize gear
-		gearSource = IAHSource.getInstance(getActivity());
 
 		// handle orientation
 		if (savedInstanceState == null) {
@@ -151,8 +154,9 @@ public class HomeFragment extends IAHFragmentParent {
 
 		if (requestCode == REQUEST_CODE_NEW_TICKET) {
 			if (resultCode == IAHActivityManager.resultCode_sucess) {
+				((Button) report_an_issue_view.findViewById(R.id.button1)).setText(getString(R.string.iah_view_issuebutton_title));
+
 				IAHUser user = (IAHUser) data.getSerializableExtra(NewIssueActivity.RESULT_USER);
-				refreshList();
 				gearSource.doSaveNewUserPropertiesForGearInCache(user);
 				mExpandableListView.setSelectedGroup(1);
 			}
@@ -211,13 +215,13 @@ public class HomeFragment extends IAHFragmentParent {
 	public void startHomeScreenLoadingDisplay(boolean loading) {
 		if (loading) {
 			numberOfServerCallWaiting = 1;
-			getHelpStackActivity().setProgressBarIndeterminateVisibility(true);
+			getInapphelpActivity().setProgressBarIndeterminateVisibility(true);
 		}
 		else {
 			numberOfServerCallWaiting--;
 			if (numberOfServerCallWaiting == 0) {
-				if (getHelpStackActivity() != null) { // To handle a crash that happens if activity is re-created and we receive network response after that.
-					getHelpStackActivity().setProgressBarIndeterminateVisibility(false);
+				if (getInapphelpActivity() != null) { // To handle a crash that happens if activity is re-created and we receive network response after that.
+					getInapphelpActivity().setProgressBarIndeterminateVisibility(false);
 				}
 			}
 		}

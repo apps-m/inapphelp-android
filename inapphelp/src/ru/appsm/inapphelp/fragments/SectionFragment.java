@@ -91,7 +91,7 @@ public class SectionFragment extends IAHFragmentParent {
 		
         // Display Search
 		mSearchFragment = new SearchFragment();
-        IAHFragmentManager.putFragmentInActivity(getHelpStackActivity(), R.id.search_container, mSearchFragment, "Search");
+        IAHFragmentManager.putFragmentInActivity(getInapphelpActivity(), R.id.search_container, mSearchFragment, "Search");
         mSearchFragment.setOnReportAnIssueClickListener(reportAnIssueLisener);
         setHasOptionsMenu(true);
         
@@ -148,7 +148,7 @@ public class SectionFragment extends IAHFragmentParent {
 	
 	private void initializeView() {
 		
-		getHelpStackActivity().setProgressBarIndeterminateVisibility(true);
+		getInapphelpActivity().setProgressBarIndeterminateVisibility(true);
 		
 		gearSource.requestKBArticle("SECTION_FAQ", this.sectionItemToDisplay, new OnFetchedArraySuccessListener() {
 			
@@ -158,7 +158,7 @@ public class SectionFragment extends IAHFragmentParent {
 				fetchedKbItems = (IAHKBItem[])successObject;
 				mSearchFragment.setKBArticleList(fetchedKbItems);
 				refreshList();
-				getHelpStackActivity().setProgressBarIndeterminateVisibility(false);
+				getInapphelpActivity().setProgressBarIndeterminateVisibility(false);
 				
 			}
 		}, new ErrorListener() {

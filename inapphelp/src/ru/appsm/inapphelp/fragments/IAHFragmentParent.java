@@ -41,7 +41,7 @@ public class IAHFragmentParent extends Fragment {
 		return act.getSupportActionBar();
 	}
 	
-	public IAHActivityParent getHelpStackActivity() {
+	public IAHActivityParent getInapphelpActivity() {
 		IAHActivityParent act = (IAHActivityParent) getActivity();
 		return act;
 	}

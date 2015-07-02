@@ -109,9 +109,8 @@ public class IAHInapphelpGear extends IAHGear {
             }
         }, errorListener);
 
+        request.setRetryPolicy(new DefaultRetryPolicy(0, 3, 1f));
         // to avoid server overload call
-        request.setRetryPolicy(new DefaultRetryPolicy(0,
-                0, 1f));
 
         request.setTag(cancelTag);
         queue.add(request);
@@ -155,7 +154,7 @@ public class IAHInapphelpGear extends IAHGear {
         }, errorListener);
 
         request.setRetryPolicy(new DefaultRetryPolicy(0,
-                0, 1f));
+                2, 1f));
 
         request.setTag(cancelTag);
         queue.add(request);

@@ -6,8 +6,8 @@
     <string name="iah_help_title">Help</string>
     <string name="iah_articles_title">FAQ</string>
     <string name="iah_issues_title">ISSUES</string>
-    <string name="iah_issuebutton_title">Contact support</string>
-    <string name="iah_powered_by_helpstack">Powered by HelpStack</string>
+    <string name="iah_create_issuebutton_title">Create ticket</string>
+    <string name="iah_view_issuebutton_title">View ticket</string>
 
     <!-- Strings used in search view -->
     <string name="iah_search_hint">Search Articles</string>

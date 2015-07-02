@@ -218,7 +218,7 @@ public class IssueDetailFragment extends IAHFragmentParent
 		if (updateTicketInProgress)
 			return;
 
-		getHelpStackActivity().setProgressBarIndeterminateVisibility(true);
+		getInapphelpActivity().setProgressBarIndeterminateVisibility(true);
 		updateTicketInProgress = true;
 		Long last_message_id = 0l;
 		if (fetchedUpdates.length > 0) {
@@ -239,7 +239,7 @@ public class IssueDetailFragment extends IAHFragmentParent
 					fetchedUpdates = (IAHTicketUpdate[]) successObject;
 				}
 
-				getHelpStackActivity().setProgressBarIndeterminateVisibility(false);
+				getInapphelpActivity().setProgressBarIndeterminateVisibility(false);
 				if (successObject.length > 0) {
 					refreshList();
 					scrollListToBottom();
@@ -251,7 +251,7 @@ public class IssueDetailFragment extends IAHFragmentParent
 			public void onErrorResponse(VolleyError error) {
 				updateTicketInProgress = false;
 				IAHUtils.showAlertDialog(getActivity(), getResources().getString(ru.appsm.inapphelp.R.string.iah_error), getResources().getString(ru.appsm.inapphelp.R.string.iah_error_fetching_ticket_updates));
-				getHelpStackActivity().setProgressBarIndeterminateVisibility(false);
+				getInapphelpActivity().setProgressBarIndeterminateVisibility(false);
 			}
 		});
 	}
@@ -323,7 +323,7 @@ public class IssueDetailFragment extends IAHFragmentParent
 				return;
 			}
 			
-			getHelpStackActivity().setProgressBarIndeterminateVisibility(true);
+			getInapphelpActivity().setProgressBarIndeterminateVisibility(true);
 			sendButton.setEnabled(false);
             sendButton.setAlpha((float)0.4);
 			
@@ -362,7 +362,7 @@ public class IssueDetailFragment extends IAHFragmentParent
 					}
 
 					refreshList();
-					getHelpStackActivity().setProgressBarIndeterminateVisibility(false);
+					getInapphelpActivity().setProgressBarIndeterminateVisibility(false);
 
 					if (((IAHTicketUpdate[]) successObject).length > 0)
 						scrollListToBottom();
@@ -374,7 +374,7 @@ public class IssueDetailFragment extends IAHFragmentParent
 					IAHUtils.showAlertDialog(getActivity(), getResources().getString(ru.appsm.inapphelp.R.string.iah_error), getResources().getString(ru.appsm.inapphelp.R.string.iah_error_posting_reply));
 					sendButton.setEnabled(true);
                     sendButton.setAlpha((float)1.0);
-					getHelpStackActivity().setProgressBarIndeterminateVisibility(false);
+					getInapphelpActivity().setProgressBarIndeterminateVisibility(false);
 				}
 			});
 		}
@@ -625,7 +625,7 @@ public class IssueDetailFragment extends IAHFragmentParent
 	/// Attachments
 	private void openAttachment(IAHAttachment attachment) {
 		if(knownAttachmentType(attachment)) {
-			IAHActivityManager.startImageAttachmentDisplayActivity(getHelpStackActivity(), attachment.getUrl(), attachment.getFileName());
+			IAHActivityManager.startImageAttachmentDisplayActivity(getInapphelpActivity(), attachment.getUrl(), attachment.getFileName());
 		}
 		else {
 			downloadAttachment(attachment);
