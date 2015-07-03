@@ -34,7 +34,7 @@ import ru.appsm.inapphelp.model.IAHKBItem;
 public class ArticleFragment extends IAHFragmentParent {
 	
 	public static final String HTML_WRAPPER_WITH_TITLE = 
-			"<!DOCTYPE html><html><head><style>body{font:18.0px helvetica} .heading{}</style>" +
+			"<!DOCTYPE html><html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"><style>body{font:18.0px helvetica} .heading{}</style>" +
 			"</head><body><h3 class='heading'>%s</h3>%s</body></html>";
 	public IAHKBItem kbItem;
 	private WebView webview;
@@ -77,7 +77,7 @@ public class ArticleFragment extends IAHFragmentParent {
 	public void initializeView() {
 		String content = this.kbItem.getBody();
 		String contentText = String.format(HTML_WRAPPER_WITH_TITLE, this.kbItem.getSubject(), content);
-		webview.loadData(contentText, "text/html", null);
+		webview.loadData(contentText, "text/html; charset=UTF-8", null);
 	}
 
 }
