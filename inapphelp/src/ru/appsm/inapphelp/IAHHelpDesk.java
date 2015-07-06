@@ -44,6 +44,8 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.HttpClientStack;
 import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.Volley;
+
+import ru.appsm.inapphelp.activities.HomeActivity;
 import ru.appsm.inapphelp.activities.IssueDetailActivity;
 import ru.appsm.inapphelp.gears.IAHInapphelpGear;
 import ru.appsm.inapphelp.logic.IAHGear;
@@ -300,7 +302,7 @@ public class IAHHelpDesk {
      */
 	public static void showHelp(Activity activity) {
         if (singletonInstance != null) {
-            activity.startActivity(new Intent("ru.appsm.inapphelp.ShowHelp"));
+            activity.startActivity(new Intent(activity, HomeActivity.class));
         } else {
             Log.e(TAG, "Inapphelp not inited");
         }

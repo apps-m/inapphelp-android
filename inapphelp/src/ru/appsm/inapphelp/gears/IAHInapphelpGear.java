@@ -46,6 +46,7 @@ import ru.appsm.inapphelp.model.IAHTicketUpdate;
 import ru.appsm.inapphelp.model.IAHUploadAttachment;
 import ru.appsm.inapphelp.model.IAHUser;
 
+import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.StringBody;
 import org.json.JSONArray;
@@ -57,6 +58,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Enumeration;
@@ -328,8 +330,6 @@ public class IAHInapphelpGear extends IAHGear {
 
         private MultipartEntity entity;
 
-        HashMap<String, String> headers = new HashMap<String, String>();
-
         public TicketPostRequest(String url, Properties requestProperties, IAHUploadAttachment[] attachments_to_upload, Listener<JSONArray> listener,
                                  ErrorListener errorListener) {
             super(Method.POST, url, errorListener);
@@ -337,7 +337,7 @@ public class IAHInapphelpGear extends IAHGear {
 
             setRetryPolicy(new DefaultRetryPolicy(TIMEOUT_MS, MAX_RETRIES, BACKOFF_MULT));
 
-            entity = new MultipartEntity();
+            entity = new MultipartEntity(HttpMultipartMode.STRICT, null, Charset.forName("UTF-8"));
 
             // iter properties
             Enumeration<Object> enumKey = requestProperties.keys();
@@ -361,7 +361,7 @@ public class IAHInapphelpGear extends IAHGear {
                 } else {
                     String val = requestProperties.getProperty(key);
                     try {
-                        entity.addPart(key, new StringBody(val));
+                        entity.addPart(key, new StringBody(val, Charset.forName("UTF-8")));
                     } catch (UnsupportedEncodingException e) {
                         e.printStackTrace();
                     }
@@ -428,5 +428,4 @@ public class IAHInapphelpGear extends IAHGear {
             }
         }
     }
-
 }
