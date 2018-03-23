@@ -32,15 +32,15 @@ import ru.appsm.inapphelp.fragments.IAHFragmentManager;
 import ru.appsm.inapphelp.fragments.HomeFragment;
 
 /**
- * 
+ *
  * Initial Activity of HelpStack. It displays Tickets and FAQ. Handles search also.
- * 
+ *
  * @author Nalin Chhajer
  *
  */
 public class HomeActivity extends IAHActivityParent {
-	
-	
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,13 +50,7 @@ public class HomeActivity extends IAHActivityParent {
         	HomeFragment homeFrag = IAHFragmentManager.getHomeFragment();
         	IAHFragmentManager.putFragmentInActivity(this, R.id.container, homeFrag, "Home");
         }
-       
-    }
-    
-    @Override
-    public void configureActionBar(ActionBar actionBar) {
-    	super.configureActionBar(actionBar);
-    	actionBar.setTitle(getString(R.string.iah_help_title));
+
     }
 
     @Override
@@ -74,7 +68,7 @@ public class HomeActivity extends IAHActivityParent {
         }
         return super.onOptionsItemSelected(item);
     }
-    
+
     @Override
     protected void onActivityResult(int arg0, int arg1, Intent arg2) {
     	super.onActivityResult(arg0, arg1, arg2);

@@ -47,10 +47,6 @@ public class ImageAttachmentDisplayActivity extends IAHActivityParent {
 		}
 	}
 	
-	@Override
-	public void configureActionBar(ActionBar actionBar) {
-		super.configureActionBar(actionBar);
-	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {

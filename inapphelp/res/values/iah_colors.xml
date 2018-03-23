@@ -3,9 +3,12 @@
     <color name="iah_background_color">#e1e1e1</color>
     <color name="iah_header_background_color">#228CD1</color>
     <color name="iah_childView_background_color">#ffffff</color>
+    <color name="iah_view_issue_text_color">#ffffff</color>
+    <color name="iah_view_issue_background_color">#228CD1</color>
+
     <color name="iah_listView_divider_color">#e2e2e2</color>
     <color name="iah_listView_selector_color">#d3d3d3</color>
-    
+
     <color name="iah_transparent_color">#0000</color>
     <color name="iah_lightGreycolor">#ECECEC</color>
     <color name="iah_darkGreycolor">#B5B5B5</color>
@@ -17,6 +20,6 @@
     <color name="iah_rightchat_messageTextcolor">#FFFFFF</color>
     <color name="iah_message_moreinfoTextColor">#000000</color>
     <color name="iah_button_background_color">#FFFFFF</color>
-    <color name="iah_buttonTextcolor">#228CD1</color>
+    <color name="iah_buttonTextcolor">#DE2527</color>
     <color name="iah_editTextcolor">#000000</color>
 </resources>

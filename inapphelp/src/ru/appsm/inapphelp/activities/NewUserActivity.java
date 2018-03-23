@@ -49,12 +49,6 @@ public class NewUserActivity extends IAHActivityParent {
 	}
 	
 	@Override
-	public void configureActionBar(ActionBar actionBar) {
-		super.configureActionBar(actionBar);
-		actionBar.setTitle(getString(R.string.iah_new_issue_title));
-	}
-
-	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle action bar item clicks here. The action bar will
 		// automatically handle clicks on the Home/Up button, so long

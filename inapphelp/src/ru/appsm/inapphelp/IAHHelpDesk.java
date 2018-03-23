@@ -347,29 +347,17 @@ public class IAHHelpDesk {
         this.mContext = context;
         this.gear = new IAHInapphelpGear(company, app_id, app_key);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
-            HurlStack stack = new HurlStack() {
-                @Override
-                public HttpResponse performRequest(Request<?> request, Map<String, String> headers)
-                        throws IOException, AuthFailureError {
+        HurlStack stack = new HurlStack() {
+            @Override
+            public HttpResponse performRequest(Request<?> request, Map<String, String> headers)
+                    throws IOException, AuthFailureError {
+                headers.put("referer", String.format("http://www.%s.inapphelp.com/", company));
+                return super.performRequest(request, headers);
+            }
+        };
 
-                    headers.put("referer", String.format("http://www.%s.inapphelp.com/", company));
-                    return super.performRequest(request, headers);
-                }
-            };
-            mRequestQueue = Volley.newRequestQueue(context, stack);
-        } else {
-            HttpClientStack stack = new HttpClientStack(AndroidHttpClient.newInstance("volley/0")) {
-                @Override
-                public HttpResponse performRequest(Request<?> request, Map<String, String> headers)
-                        throws IOException, AuthFailureError {
+        mRequestQueue = Volley.newRequestQueue(context, stack);
 
-                    headers.put("referer", String.format("http://www.%s.inapphelp.com/", company));
-                    return super.performRequest(request, headers);
-                }
-            };
-            mRequestQueue = Volley.newRequestQueue(context, stack);
-        }
     }
 }
 

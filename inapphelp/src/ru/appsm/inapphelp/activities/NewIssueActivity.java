@@ -54,16 +54,7 @@ public class NewIssueActivity extends IAHActivityParent {
     }
 
     @Override
-    public void configureActionBar(ActionBar actionBar) {
-        super.configureActionBar(actionBar);
-        actionBar.setTitle(getString(R.string.iah_new_issue_title));
-    }
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
-
-
         return true;
     }
 

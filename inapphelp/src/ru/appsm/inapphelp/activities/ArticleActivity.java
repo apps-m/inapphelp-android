@@ -27,6 +27,7 @@ import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import ru.appsm.inapphelp.R;
 import ru.appsm.inapphelp.fragments.ArticleFragment;
 import ru.appsm.inapphelp.fragments.IAHFragmentManager;
 import ru.appsm.inapphelp.model.IAHKBItem;
@@ -34,37 +35,27 @@ import ru.appsm.inapphelp.model.IAHKBItem;
 public class ArticleActivity extends IAHActivityParent {
 
 	public static final String EXTRAS_ARTICLE_ITEM = "item";
-	
-	
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(ru.appsm.inapphelp.R.layout.iah_activity_article);
+		setContentView(R.layout.iah_activity_article, savedInstanceState, R.string.iah_article);
 
 		if (savedInstanceState == null) {
-
 			IAHKBItem kbItem = (IAHKBItem)getIntent().getSerializableExtra("item");
 			ArticleFragment sectionFragment = IAHFragmentManager.getArticleFragment(this, kbItem);
-			IAHFragmentManager.putFragmentInActivity(this, ru.appsm.inapphelp.R.id.container, sectionFragment, "Article");
-			getHelpStackActionBar().setTitle(ru.appsm.inapphelp.R.string.iah_article);
-
+			IAHFragmentManager.putFragmentInActivity(this, R.id.container, sectionFragment, "Article");
 		}
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(ru.appsm.inapphelp.R.menu.iah_article, menu);
+		getMenuInflater().inflate(R.menu.iah_article, menu);
 		return true;
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == android.R.id.home) {
 			finish();
@@ -72,10 +63,4 @@ public class ArticleActivity extends IAHActivityParent {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
-	@Override
-    public void configureActionBar(ActionBar actionBar) {
-    	super.configureActionBar(actionBar);
-    }
-
 }

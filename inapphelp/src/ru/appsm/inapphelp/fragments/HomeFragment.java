@@ -54,15 +54,13 @@ import ru.appsm.inapphelp.model.IAHUser;
 
 /**
  * Initial Fragment of HelpStack that contains FAQ and Tickets
- * 
+ *
  * @author Nalin Chhajer
  *
  */
 public class HomeFragment extends IAHFragmentParent {
 
 	public static final int REQUEST_CODE_NEW_TICKET = 1003;
-
-	private  View report_an_issue_view;
 
 	private ExpandableListView mExpandableListView;
 	private LocalAdapter mAdapter;
@@ -71,6 +69,7 @@ public class HomeFragment extends IAHFragmentParent {
 
 	private IAHSource gearSource;
 
+	private  View rootView;
 	private IAHKBItem[] fetchedKbArticles;
 
 	// To show loading until both the kb and tickets are not fetched.
@@ -82,26 +81,19 @@ public class HomeFragment extends IAHFragmentParent {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+							 Bundle savedInstanceState) {
 
-		// Initialize gear
-		gearSource = IAHSource.getInstance(getActivity());
-
-		View rootView = inflater.inflate(R.layout.iah_fragment_home, container, false);
+		rootView = inflater.inflate(R.layout.iah_fragment_home, container, false);
 
 		// ListView
-		mExpandableListView = (ExpandableListView) rootView.findViewById(R.id.expandableList); 
+		mExpandableListView = (ExpandableListView) rootView.findViewById(R.id.expandableList);
 		mAdapter = new LocalAdapter(getActivity());
 
 		// report an issue
-		report_an_issue_view = inflater.inflate(R.layout.iah_expandable_footer_report_issue, null);
-
-		if (!gearSource.isNewUser())
-			((Button) report_an_issue_view.findViewById(R.id.button1)).setText(getString(R.string.iah_view_issuebutton_title));
-
+		View report_an_issue_view = inflater.inflate(R.layout.iah_expandable_footer_report_issue, null);
 		report_an_issue_view.findViewById(R.id.button1).setOnClickListener(reportIssueClickListener);
 		mExpandableListView.addFooterView(report_an_issue_view);
-		
+
 		mExpandableListView.setAdapter(mAdapter);
 		mExpandableListView.setOnChildClickListener(expandableChildViewClickListener);
 
@@ -112,38 +104,44 @@ public class HomeFragment extends IAHFragmentParent {
 		// Add search Menu
 		setHasOptionsMenu(true);
 
+		// Initialize gear
+		gearSource = IAHSource.getInstance(getActivity());
+
+		if (!gearSource.isNewUser()) {
+			Button mButton = (Button) report_an_issue_view.findViewById(R.id.button1);
+			mButton.setText(getString(R.string.iah_viewissuebutton_title));
+			mButton.setBackgroundColor(getResources().getColor(R.color.iah_view_issue_background_color));
+			mButton.setTextColor(getResources().getColor(R.color.iah_view_issue_text_color));
+		}
 
 		// handle orientation
 		if (savedInstanceState == null) {
 			initializeView();
-		}
-		else {
-            Gson gson = new Gson();
+		} else {
+			Gson gson = new Gson();
 			fetchedKbArticles = gson.fromJson(savedInstanceState.getString("kbArticles"), IAHKBItem[].class);
 			numberOfServerCallWaiting = savedInstanceState.getInt("numberOfServerCallWaiting");
 			mSearchFragment.setKBArticleList(fetchedKbArticles);
 			if (numberOfServerCallWaiting > 0) { // To avoid error during orientation
 				initializeView(); // refreshing list from server
-			}
-			else {
+			} else {
 				refreshList();
 			}
-			
 		}
 
 		return rootView;
 	}
-	
+
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-		
+
 	}
 
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
-        Gson gson = new Gson();
+		Gson gson = new Gson();
 		outState.putString("kbArticles", gson.toJson(fetchedKbArticles));
 		outState.putInt("numberOfServerCallWaiting", numberOfServerCallWaiting);
 	}
@@ -154,11 +152,15 @@ public class HomeFragment extends IAHFragmentParent {
 
 		if (requestCode == REQUEST_CODE_NEW_TICKET) {
 			if (resultCode == IAHActivityManager.resultCode_sucess) {
-				((Button) report_an_issue_view.findViewById(R.id.button1)).setText(getString(R.string.iah_view_issuebutton_title));
-
 				IAHUser user = (IAHUser) data.getSerializableExtra(NewIssueActivity.RESULT_USER);
+				refreshList();
 				gearSource.doSaveNewUserPropertiesForGearInCache(user);
 				mExpandableListView.setSelectedGroup(1);
+
+				Button mButton = (Button) rootView.findViewById(R.id.button1);
+				mButton.setText(getString(R.string.iah_viewissuebutton_title));
+				mButton.setBackgroundColor(getResources().getColor(R.color.iah_view_issue_background_color));
+				mButton.setTextColor(getResources().getColor(R.color.iah_view_issue_text_color));
 			}
 		}
 	}
@@ -173,17 +175,17 @@ public class HomeFragment extends IAHFragmentParent {
 		MenuItem searchItem = menu.findItem(R.id.search);
 		mSearchFragment.addSearchViewInMenuItem(getActivity(), searchItem);
 	}
-	
+
 	@Override
 	public void onDetach() {
 		gearSource.cancelOperation("FAQ");
 		super.onDetach();
 	}
-	
+
 	private void initializeView() {
 
 		startHomeScreenLoadingDisplay(true);
-		
+
 		// Show Loading
 		gearSource.requestKBArticle("FAQ", null, new OnFetchedArraySuccessListener() {
 			@Override
@@ -211,7 +213,7 @@ public class HomeFragment extends IAHFragmentParent {
 		});
 
 	}
-	
+
 	public void startHomeScreenLoadingDisplay(boolean loading) {
 		if (loading) {
 			numberOfServerCallWaiting = 1;
@@ -231,7 +233,7 @@ public class HomeFragment extends IAHFragmentParent {
 
 		@Override
 		public boolean onChildClick(ExpandableListView parent, View v,
-				int groupPosition, int childPosition, long id) {
+									int groupPosition, int childPosition, long id) {
 			if (groupPosition == 0) {
 				IAHKBItem kbItemClicked = (IAHKBItem) mAdapter.getChild(groupPosition, childPosition);
 				articleClickedOnPosition(kbItemClicked);
@@ -248,7 +250,7 @@ public class HomeFragment extends IAHFragmentParent {
 			gearSource.launchCreateNewTicketScreen(HomeFragment.this, REQUEST_CODE_NEW_TICKET);
 		}
 	};
-	
+
 
 	private OnReportAnIssueClickListener reportAnIssueLisener = new OnReportAnIssueClickListener() {
 		@Override
@@ -257,8 +259,8 @@ public class HomeFragment extends IAHFragmentParent {
 			gearSource.launchCreateNewTicketScreen(HomeFragment.this, REQUEST_CODE_NEW_TICKET);
 		}
 	};
-	
-	
+
+
 
 	//////////////////////////////////////
 	// 		UTILITY FUNCTIONS         ///
@@ -305,7 +307,7 @@ public class HomeFragment extends IAHFragmentParent {
 
 		@Override
 		public View getChildView(final int groupPosition,final int childPosition,
-				boolean isLastChild, View convertView, ViewGroup parent) {
+								 boolean isLastChild, View convertView, ViewGroup parent) {
 
 			ChildViewHolder holder;
 
@@ -337,7 +339,7 @@ public class HomeFragment extends IAHFragmentParent {
 
 		@Override
 		public View getGroupView(int groupPosition, boolean isExpanded,
-				View convertView, ViewGroup parent) {
+								 View convertView, ViewGroup parent) {
 			ParentViewHolder holder;
 
 			if (convertView == null) {

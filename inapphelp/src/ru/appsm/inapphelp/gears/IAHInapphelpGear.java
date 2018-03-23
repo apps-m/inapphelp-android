@@ -111,8 +111,9 @@ public class IAHInapphelpGear extends IAHGear {
             }
         }, errorListener);
 
-        request.setRetryPolicy(new DefaultRetryPolicy(0, 3, 1f));
         // to avoid server overload call
+        request.setRetryPolicy(new DefaultRetryPolicy(3000,
+                3, 1f));
 
         request.setTag(cancelTag);
         queue.add(request);
@@ -155,8 +156,8 @@ public class IAHInapphelpGear extends IAHGear {
             }
         }, errorListener);
 
-        request.setRetryPolicy(new DefaultRetryPolicy(0,
-                2, 1f));
+        request.setRetryPolicy(new DefaultRetryPolicy(30000,
+                5, 1f));
 
         request.setTag(cancelTag);
         queue.add(request);
@@ -318,10 +319,10 @@ public class IAHInapphelpGear extends IAHGear {
     private class TicketPostRequest extends Request<JSONArray> {
 
         /** Socket timeout in milliseconds for image requests */
-        protected static final int TIMEOUT_MS = 0;
+        protected static final int TIMEOUT_MS = 30000;
 
         /** Default number of retries for image requests */
-        protected static final int MAX_RETRIES = 0;
+        protected static final int MAX_RETRIES = 3;
 
         /** Default backoff multiplier for image requests */
         protected static final float BACKOFF_MULT = 1f;

@@ -3,12 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-
-    <Button
-        android:id="@+id/button1"
+    
+    <TextView
+        android:id="@+id/poweredTextLabel"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/iah_issuebutton_title"
-        style="@style/iah_buttonStyle"/>
+        android:layout_height="match_parent"
+        android:layout_margin="8dp"
+        android:gravity="center"
+        android:text="@string/iah_powered_by_helpstack"
+		android:textColor="@color/iah_darkGreycolor"
+        />
 
 </LinearLayout>

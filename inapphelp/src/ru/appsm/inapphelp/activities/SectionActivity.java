@@ -52,8 +52,6 @@ public class SectionActivity extends IAHActivityParent {
 			IAHKBItem kbSectionItem = (IAHKBItem)getIntent().getSerializableExtra(EXTRAS_SECTION_ITEM);
 			SectionFragment sectionFragment = IAHFragmentManager.getSectionFragment(this, kbSectionItem);
 			IAHFragmentManager.putFragmentInActivity(this, ru.appsm.inapphelp.R.id.container, sectionFragment, "Section");
-			getHelpStackActionBar().setTitle(kbSectionItem.getSubject());
-			
 		}
 	}
 
@@ -77,10 +75,4 @@ public class SectionActivity extends IAHActivityParent {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
-	@Override
-	public void configureActionBar(ActionBar actionBar) {
-		super.configureActionBar(actionBar);
-	}
-
 }
